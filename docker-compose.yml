@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  # OpenVPN Server (Your Part)
+  openvpn:
+    image: kylemanna/openvpn
+    container_name: openvpn_server
+    ports:
+      - "1194:1194/udp"
+    cap_add:
+      - NET_ADMIN
+    volumes:
+      - openvpn-data:/etc/openvpn
+    restart: always
+
+  # Flask Web App (Ruchi's Part Placeholder)
+  flask_app:
+    image: python:3.10-slim
+    container_name: vpn_dashboard
+    command: python -c "print('Flask placeholder running...')"
+    ports:
+      - "5000:5000"
+    restart: always
+
+  # Monitoring (Manan's Part Placeholder)
+  prometheus:
+    image: prom/prometheus
+    container_name: prometheus
+    ports:
+      - "9090:9090"
+    restart: always
+
+  grafana:
+    image: grafana/grafana
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    restart: always
+
+volumes:
+  openvpn-data:
